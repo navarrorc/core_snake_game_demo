@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text;
 
 namespace core_snake_game_demo
 {
@@ -36,7 +37,6 @@ namespace core_snake_game_demo
 
             var currentForegroundColor = Console.ForegroundColor;
 
-            //Console.WriteLine("Hello World!");
             InitFrame();
             DrawFrame();
             InitWorm();
@@ -117,14 +117,10 @@ namespace core_snake_game_demo
             Console.Clear();
 
             for (int y = 0; y < height; y++)
-                for (int x = 0; x < width; x++)
-                {
-                    Console.SetCursorPosition(x, y);
-                    Console.Write(grid[y][x].ToString());
-                }
-
-            //Console.WriteLine(); // create new line
-
+            {
+                Console.SetCursorPosition(0, y);
+                Console.Write(new string(grid[y]));
+            }
         }
 
         static void InitWorm()
