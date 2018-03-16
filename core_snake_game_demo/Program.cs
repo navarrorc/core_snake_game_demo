@@ -10,6 +10,56 @@ namespace core_snake_game_demo
         public int Y { get; set; }
     }
 
+    public class Fruit : Sprite
+    {
+        public Fruit(char symbol) : base(symbol)
+        {
+        }
+    }
+
+    public class Worm : Sprite
+    {
+        // Fields
+        private char _body;
+
+        // Properties
+
+        // Constructors
+        public Worm(char head, char body) : base(head)
+        {
+            _body = body;
+        }
+
+        // Methods
+        public char DrawBody()
+        {
+            return _body;
+        }
+    }
+
+    public abstract class Sprite
+    {
+        /* Base Class */
+
+        // Fields
+        private char _symbol;
+
+        // Properties
+
+        // Constructor
+        public Sprite(char symbol)
+        {
+            _symbol = symbol;
+        }
+
+        // Methods
+        public char Draw()
+        {
+            return _symbol;
+        }
+    }
+
+
     class Program
     {
         static char[][] grid = new char[20][];
@@ -29,6 +79,22 @@ namespace core_snake_game_demo
         static int score = 0;
 
         static List<Pos> worm = new List<Pos>();
+
+        static Fruit _fruit;
+        static Worm _worm;
+
+        static Program()
+        {
+            _fruit = new Fruit('♥');
+            _worm = new Worm('☻', 'o');
+
+            // corner piece top left
+            // corner piece top right
+            // corner piece bottom left
+            // corner piece bottom right
+            // vertical piece
+            // horizontal piece
+        }
 
         static void Main(string[] args)
         {
@@ -132,7 +198,7 @@ namespace core_snake_game_demo
             worm.Add(new Pos() { X = 25, Y = 9 });
             foreach (Pos pos in worm)
             {
-                grid[pos.Y][pos.X] = 'o';
+                grid[pos.Y][pos.X] = _worm.DrawBody();
             }
 
         }
@@ -147,9 +213,9 @@ namespace core_snake_game_demo
                 Console.SetCursorPosition(wormpart.X, wormpart.Y);
                 count++;
                 if (count < 5)
-                    Console.Write('o');
+                    Console.Write(_worm.DrawBody());
                 else
-                    Console.Write('ö');
+                    Console.Write(_worm.Draw());
             }
         }
 
@@ -157,19 +223,19 @@ namespace core_snake_game_demo
         {
             Console.ForegroundColor = ConsoleColor.Yellow;
             Console.SetCursorPosition(worm_x, worm_y);
-            Console.Write('ö');
+            Console.Write(_worm.Draw());
         }
 
         static void DrawWormBodyOnHeadPosition()
         {
             Console.ForegroundColor = ConsoleColor.Yellow;
             Console.SetCursorPosition(worm_x, worm_y);
-            Console.Write('o');
+            Console.Write(_worm.DrawBody());
         }
 
         static void MoveWormHead()
         {
-            grid[worm_y][worm_x] = 'o';
+            grid[worm_y][worm_x] = _worm.DrawBody();
 
             switch (current)
             {
@@ -224,7 +290,8 @@ namespace core_snake_game_demo
 
             Console.ForegroundColor = ConsoleColor.Red;
             Console.SetCursorPosition(x, y);
-            Console.Write('☼');
+            //Console.Write('☼');
+            Console.Write(_fruit.Draw());
         }
 
         static void InitScore()
